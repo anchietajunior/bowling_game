@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  resources :attempts
-  resources :frames
-  resources :games
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :attempts, only: [:create]
+  resources :games, only: [:create, :show]
 end

@@ -1,5 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Frame, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'relationships' do
+    it { is_expected.to have_many :attempts }
+  end
+
+  describe 'validations' do
+    it { is_expected.to validate_presence_of :game_id }
+    it { is_expected.to validate_presence_of :number }
+  end
 end
