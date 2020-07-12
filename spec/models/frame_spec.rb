@@ -6,7 +6,7 @@ RSpec.describe Frame, type: :model do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of :game_id }
+    it { is_expected.to validate_presence_of :game }
     it { is_expected.to validate_presence_of :number }
   end
 end
