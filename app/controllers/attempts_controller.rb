@@ -1,18 +1,20 @@
 class AttemptsController < ApplicationController
 
   def create
-    @attempt = Attempt.new(attempt_params)
+    result = Attempts::AttemptCreatorService.call(attempt_params)
 
-    if @attempt.save
-      render json: @attempt, status: :created, location: @attempt
+    p "RESULT =========== #{result}"
+
+    if result.success?
+      render json: result.value, status: :ok
     else
-      render json: @attempt.errors, status: :unprocessable_entity
+      render json: { errors: result.error }, status: :unprocessable_entity
     end
   end
 
   private
 
     def attempt_params
-      params.require(:attempt).permit(:overtuned_pins, :frame_id)
+      params.require(:attempt).permit(:overtuned_pins, :game_id)
     end
 end

@@ -17,12 +17,8 @@ RSpec.describe "/games", type: :request do
     end
 
     it "renders a JSON response with the new game" do
-      post games_url,
-            params: {}, headers: {}, as: :json
-      expect(response).to have_http_status(:created)
-      p response.body
-      # expect(response.content_type).to match(a_string_including("status"))
+      post games_url, params: {}, headers: {}, as: :json
+      expect(response).to have_http_status(:ok)
     end
-
   end
 end

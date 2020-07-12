@@ -2,7 +2,7 @@ class GamesController < ApplicationController
   before_action :set_game, only: [:show]
 
   def show
-    result = Games::GameStatusService.call(@game)
+    result = Games::GameInfoService.call(@game)
     
     if result.success?
       render json: result.value, status: :ok
@@ -15,9 +15,9 @@ class GamesController < ApplicationController
     @game = Game.new
 
     if @game.save
-      render json: @game, status: :created, location: @game
+      render json: @game, status: :ok
     else
-      render json: @game.errors, status: :unprocessable_entity
+      render json: @game.errors, status: :bad
     end
   end
 
