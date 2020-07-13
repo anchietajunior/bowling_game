@@ -23,7 +23,6 @@ module Attempts
     def retrieve_frame
       @frame = Frame.new
       @frame.game = game
-      @frame.number = 1
       @frame.save!
     end
 

@@ -3,8 +3,6 @@ class AttemptsController < ApplicationController
   def create
     result = Attempts::AttemptCreatorService.call(attempt_params)
 
-    p "RESULT =========== #{result}"
-
     if result.success?
       render json: result.value, status: :ok
     else

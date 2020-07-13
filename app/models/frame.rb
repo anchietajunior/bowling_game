@@ -3,5 +3,4 @@ class Frame < ApplicationRecord
   has_many :attempts
 
   validates :game, presence: true
-  validates :number, presence: true
 end

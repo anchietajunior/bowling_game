@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_07_115550) do
+ActiveRecord::Schema.define(version: 2020_07_13_001140) do
 
   create_table "attempts", force: :cascade do |t|
     t.integer "overtuned_pins"
@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 2020_07_07_115550) do
   end
 
   create_table "frames", force: :cascade do |t|
-    t.integer "number"
     t.integer "game_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
