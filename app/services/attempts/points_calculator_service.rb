@@ -30,7 +30,7 @@ module Attempts
     end
 
     def first_attempt_of_the_game?
-      game.frames.count == 1 && frame.attempts.none?
+      game.frames.count == 1 && frame.attempts.empty?
     end
 
     def last_attempt_was_a_strike?

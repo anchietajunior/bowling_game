@@ -15,9 +15,8 @@ module Frames
     attr_reader :game
 
     def current_frame
-      return create_frame if game_just_started?
-      return last_frame unless finished?
-      create_frame
+      return create_frame if game_just_started? || finished?
+      last_frame
     end
 
     def create_frame
@@ -25,40 +24,46 @@ module Frames
     end
 
     def game_just_started?
-      game.frames.none?
+      game.frames.empty?
     end
 
     def finished?
-      return true if tenth_frame_finished?
-      return true if strike? && !tenth_frame?
-      return true if spare? && !tenth_frame?
+      return true if tenth_frame_finished? 
+      return true if last_frame_is_a_spare?
+      return true if last_frame_is_a_strike? && !tenth_frame?
       false
     end
 
     def tenth_frame_finished?
-      return true if tenth_frame? && last_frame_attempts == 3
-      return true if tenth_frame? && spare?
+      return true if tenth_frame? && last_frame_attempts_count == 3
+      return true if tenth_frame? && last_frame_is_a_spare?
       false
     end
 
-    def tenth_frame?
-      game_frames_count == 10
+    def last_frame_is_a_strike?
+      if last_frame.present? && last_frame.try(:attempts).present?
+        return last_frame.attempts.any? { |attempt| attempt.overtuned_pins == 10 }
+      end
+      false
     end
 
-    def strike?
-      last_frame.attempts.order(:created_at).first.overtuned_pins == 10
+    def last_frame_is_a_spare?
+      if last_frame.present? && last_frame.try(:attempts).present?
+        return last_frame.attempts.all? { |attempt| attempt.overtuned_pins < 10 } && last_frame_attempts_count > 1
+      end
+      false
     end
 
-    def spare?
-      last_frame.attempts.order(:created_at).first.overtuned_pins < 10 && last_frame_attempts == 2
-    end
-
-    def last_frame_attempts
+    def last_frame_attempts_count
       last_frame.attempts.count
     end
 
     def last_frame
       game.frames.order(:created_at).last
+    end
+
+    def tenth_frame?
+      game_frames_count == 10
     end
 
     def game_frames_count

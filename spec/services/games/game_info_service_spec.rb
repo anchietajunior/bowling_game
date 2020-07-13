@@ -10,8 +10,8 @@ RSpec.describe Games::GameInfoService do
       let!(:frames) { FactoryBot.create_list(:frame, 7, game_id: game.id) }
       let!(:attempts) do
         frames.each do |frame|
-          Attempt.create!(frame: frame, overtuned_pins: rand(1..9))
-          Attempt.create!(frame: frame, overtuned_pins: rand(1..9))
+          Attempt.create!(frame: frame, overtuned_pins: 3, points: 3)
+          Attempt.create!(frame: frame, overtuned_pins: 3, points: 3)
         end
       end
 

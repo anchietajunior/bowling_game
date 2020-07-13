@@ -6,13 +6,14 @@ RSpec.describe Frames::CurrentFrameService do
 
     context 'game just started' do
 
-      let!(:game)    { create(:game) }
+      let!(:game) { create(:game) }
 
       let(:service) do
         described_class.call(game)
       end
 
-      it 'returns the second frame' do
+      it 'returns the first frame' do
+        p service
         expect(service.value.is_a?(Frame)).to be_truthy
         expect(game.frames.count).to eq(1)
       end

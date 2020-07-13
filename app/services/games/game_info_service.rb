@@ -22,8 +22,12 @@ module Games
         id: game.id,
         status: status,
         frames: {},
-        points: 0
+        score: score
       }
+    end
+
+    def score
+      Games::ScoreCalculatorService.call(game).value
     end
 
     def build_frames

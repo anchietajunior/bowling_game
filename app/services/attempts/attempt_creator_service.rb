@@ -24,14 +24,14 @@ module Attempts
     end
 
     def points
-      Attempts::PointsCalculatorService.call(params[:overtuned_pins], frame)
+      Attempts::PointsCalculatorService.call(params[:overtuned_pins], frame).value
     end
 
     def create_attempt!
       Attempt.create!(
         frame: frame, 
-        overtuned_pins: params[:overtuned_pins],
-        points: points
+        points: points,
+        overtuned_pins: params[:overtuned_pins]
       )
     end
 

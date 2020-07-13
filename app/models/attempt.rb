@@ -3,4 +3,5 @@ class Attempt < ApplicationRecord
 
   validates :frame, presence: true
   validates :overtuned_pins, presence: true
+  validates :points, presence: true
 end
