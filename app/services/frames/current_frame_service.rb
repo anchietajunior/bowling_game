@@ -15,12 +15,17 @@ module Frames
     attr_reader :game
 
     def current_frame
+      return create_frame if game_just_started?
       return last_frame unless finished?
       create_frame
     end
 
     def create_frame
       Frame.create!(game: game)
+    end
+
+    def game_just_started?
+      game.frames.none?
     end
 
     def finished?

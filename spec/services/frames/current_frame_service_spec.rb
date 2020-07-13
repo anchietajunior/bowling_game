@@ -3,6 +3,21 @@ require 'rails_helper'
 RSpec.describe Frames::CurrentFrameService do
 
   describe '#call' do
+
+    context 'game just started' do
+
+      let!(:game)    { create(:game) }
+
+      let(:service) do
+        described_class.call(game)
+      end
+
+      it 'returns the second frame' do
+        expect(service.value.is_a?(Frame)).to be_truthy
+        expect(game.frames.count).to eq(1)
+      end
+    end
+
     context 'first attempt is a strike' do
 
       let!(:game)    { create(:game) }

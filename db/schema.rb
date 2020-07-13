@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_13_001140) do
+ActiveRecord::Schema.define(version: 2020_07_13_012619) do
 
   create_table "attempts", force: :cascade do |t|
     t.integer "overtuned_pins"
     t.integer "frame_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "points"
     t.index ["frame_id"], name: "index_attempts_on_frame_id"
   end
 
