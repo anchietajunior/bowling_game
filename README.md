@@ -1,5 +1,7 @@
 # Bowling Game
 
+![Bowling](cover.png)
+
 ## Clone
 
 ```
