@@ -5,8 +5,7 @@ module Attempts
     end
 
     def call
-      retrieve_game
-      retrieve_frame
+      raise "This Game is finished" if game_finished?
       Result.new(true, nil, create_attempt!)
     rescue StandardError => e
       Result.new(false, e.message, nil)
@@ -14,20 +13,22 @@ module Attempts
 
     private
 
-    attr_reader :params, :game, :frame
+    attr_reader :params
 
-    def retrieve_game
-      @game = Game.find(params[:game_id])
+    def game
+      Game.find(params[:game_id])
     end
 
-    def retrieve_frame
-      @frame = Frame.new
-      @frame.game = game
-      @frame.save!
+    def frame
+      Frames::CurrentFrameService.call(game).value
     end
 
     def create_attempt!
       Attempt.create!(frame: frame, overtuned_pins: params[:overtuned_pins])
+    end
+
+    def game_finished?
+      Games::GameStatusService.call(game).value == "finished"
     end
   end
 end

@@ -30,7 +30,19 @@ module Games
     end
 
     def last_frame_is_finished?
-      game.frames.last.attempts.count == 3
+      last_frame.attempts.count == 3 || spare?
+    end
+
+    def spare?
+      last_frame.attempts.order(:created_at).first.overtuned_pins < 10 && last_frame_attempts == 2
+    end
+
+    def last_frame_attempts
+      last_frame.attempts.count
+    end
+
+    def last_frame
+      game.frames.last
     end
   end
 end
