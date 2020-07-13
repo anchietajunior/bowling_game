@@ -23,8 +23,16 @@ module Attempts
       Frames::CurrentFrameService.call(game).value
     end
 
+    def points
+      Attempts::PointsCalculatorService.call(params[:overtuned_pins], frame)
+    end
+
     def create_attempt!
-      Attempt.create!(frame: frame, overtuned_pins: params[:overtuned_pins])
+      Attempt.create!(
+        frame: frame, 
+        overtuned_pins: params[:overtuned_pins],
+        points: points
+      )
     end
 
     def game_finished?
